@@ -5,25 +5,81 @@
 :root {
     /* colors */
     --color-white: #ffffff;
-    --color-black: #000000;
-    --color-accent: #ff0000;
+    --color-pink: #FF5A7F;
+    --color-blue: #29B590;
+    --color-yellow: #FFC622;
     /* gaps & sizes */
     --gap-around: 40px;
     /* fonts */
-    --font-h1: normal 64px/120% serif;
+    --font-body: "Courier New", monospace;
+    --font-heading: "Futura Condensed ExtraBold", sans-serif;
 }
 
 /* Styling of all available layout components. */
+/* Logo */
+.logo {
+    font-family: var(--font-heading);
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--color-pink);
+    text-decoration: none;
+}
+
 [data-layout="header"] {
     padding: var(--gap-around);
     background-color: var(--color-accent);
     position: sticky;
     top: 0;
     z-index: 100;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .nav-container {
+        .nav {
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 200px;
+            a {
+                font-family: var(--font-body);
+                font-size: 30px;
+                text-decoration: underline;
+                color: #FF5A7F;
+
+            }
+        }
+    }
 }
 [data-layout="footer"] {
     padding: var(--gap-around);
     background-color: var(--color-accent);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .nav-container {
+        width: 100%;
+
+        .nav-item {
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+
+            a {
+                font-family: var(--font-body);
+                font-size: 20px;
+                text-decoration: underline;
+                color: #FFC622;
+            }
+        }
+    }
 }
 
 /* Styling of all available page components. */
