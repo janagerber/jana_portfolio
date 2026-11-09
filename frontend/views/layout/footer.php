@@ -1,7 +1,9 @@
+
 <?php
 $email = get_globals_email();
 $socials = get_globals_socials();
 $copyright = get_globals_copyright();
+$menu = get_menu_by_slug('legals');
 ?>
 
 <footer data-layout="footer">
@@ -23,6 +25,21 @@ $copyright = get_globals_copyright();
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
+
+    <nav class="nav-container">
+        <ul class="nav">
+            <?php if ($menu) : ?>
+                <?php foreach ($menu as $item) : ?>
+                    <li class="nav-item">
+                        <a target="<?= esc_attr($item['target']) ?>"
+                           href="<?= esc_url($item['url']) ?>">
+                            <?= esc_html($item['title']) ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </ul>
+    </nav>
 
     <?php if ($copyright) : ?>
         <p><?= esc_html($copyright) ?></p>

@@ -11,16 +11,16 @@ $logo = get_globals_logo();
     </a>
 
     <nav class="nav-container">
-        <ul class="nav">
-            <?php foreach ($menu as $item) : ?>
-                <li class="nav-item">
-                    <a target="<?= esc_attr($item['target']) ?>"
-                       href="<?= esc_url($item['url']) ?>">
-                        <?= esc_html($item['title']) ?>
-                    </a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </nav>
+    <ul class="nav">
+        <?php foreach ($menu as $item) : ?>
+            <li class="nav-item">
+                <a target="<?= esc_attr($item['target']) ?>"
+                   href="<?= esc_url($item['url']) ?>">
+                    <?= esc_html($item['title']) ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</nav>
 
 </header>

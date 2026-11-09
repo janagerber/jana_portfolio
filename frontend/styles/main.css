@@ -1,141 +1,367 @@
 @import "_fonts.css";
 @import "_resets.css";
 
-/* Definition of base styles. */
+/* ==========================================================================
+   1. VARIABLES & BASE STYLES
+   ========================================================================== */
 :root {
-    /* colors */
+    /* Colors */
     --color-white: #ffffff;
     --color-pink: #FF5A7F;
-    --color-blue: #29B590;
+    --color-blue: #29B590; /* Türkis / Grün */
     --color-yellow: #FFC622;
-    /* gaps & sizes */
+    --color-dark: #000000;
+
+    /* Gaps & Spacing */
     --gap-around: 40px;
-    /* fonts */
+
+    /* Fonts */
     --font-body: "Courier New", monospace;
     --font-heading: "Avenir Next Condensed", sans-serif;
 }
 
-/* Styling of all available layout components. */
-/* Logo */
-.logo {
-    font-family: var(--font-heading);
-    font-size: 30px;
-    font-weight: 700;
-    color: var(--color-pink);
-    text-decoration: none;
+* {
+    box-sizing: border-box;
 }
 
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none;
+    height: 100%;
+    background-color: var(--color-dark);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+    overscroll-behavior-y: none;
+    background-color: var(--color-blue);
+}
+
+/* ==========================================================================
+   2. LAYOUT: HEADER (Nur im 1. Fold oben verankert)
+   ========================================================================== */
 [data-layout="header"] {
-    padding: var(--gap-around);
-    background-color: var(--color-accent);
-    position: sticky;
+    position: absolute;
     top: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--gap-around);
+    background-color: transparent;
     z-index: 100;
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    .nav-container {
-        .nav {
-            list-style: none;
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 200px;
-            a {
-                font-family: var(--font-body);
-                font-size: 30px;
-                text-decoration: underline;
-                color: #FF5A7F;
 
-            }
+    .logo {
+        font-family: var(--font-heading);
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--color-pink);
+        text-decoration: none;
+    }
+
+    .nav-container .nav {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 40px;
+        margin: 0;
+        padding: 0;
+
+        a {
+            font-family: var(--font-body);
+            font-size: 24px;
+            text-decoration: underline;
+            color: var(--color-pink);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
     }
 }
+
+/* ==========================================================================
+   3. LAYOUT: FOOTER (Exklusiv ganz unten in Block 3 platziert)
+   ========================================================================== */
 [data-layout="footer"] {
-    padding: var(--gap-around);
-    background-color: var(--color-accent);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 var(--gap-around) var(--gap-around) var(--gap-around);
+    background-color: transparent;
+    z-index: 100;
+
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .socials {
+        display: contents; 
+    }
+
+    a, p {
+        font-family: var(--font-body);
+        font-size: 18px;
+        color: var(--color-yellow);
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    a {
+        text-decoration: underline;
+    }
 
     .nav-container {
-        width: 100%;
+        margin: 0;
 
-        .nav-item {
-            list-style: none;
+        .nav {
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
             align-items: center;
             gap: 40px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
 
-            a {
-                font-family: var(--font-body);
-                font-size: 20px;
-                text-decoration: underline;
-                color: #FFC622;
+            .nav-item {
+                list-style: none;
             }
         }
     }
 }
 
-/* Styling of all available page components. */
-[data-page] {
+/* ==========================================================================
+   4. PAGES & SECTIONS (project.php)
+   ========================================================================== */
+[data-page="project"] {
     width: 100%;
-    height: 100%;
-}
+    background-color: var(--color-blue);
 
-/* Styling of all available module components. */
-[data-module] {
-    overflow: clip;
-    position: relative;
-    width: 100%;
-}
-[data-module="example"] {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    & > .image {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        inset: 0;
-    }
-    & > .title {
+    /* --- 1. SCREEN-FOLD: Hero + Intro (BILD 1) --- */
+    .hero-intro-wrapper {
         position: relative;
-        color: white;
-        font: var(--font-h1);
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .hero {
+        position: relative;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        overflow: hidden;
+
+        .image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .title {
+            position: relative;
+            z-index: 2;
+            font-family: var(--font-heading);
+            font-size: 180px;
+            font-weight: 900;
+            color: var(--color-blue);
+            text-transform: uppercase;
+            text-align: center;
+            margin: 0;
+            line-height: 0.9;
+            border-bottom: 20px solid var(--color-yellow);
+            padding-bottom: 10px;
+            max-width: 90%;
+        }
+    }
+
+    .intro {
+        width: 100%;
+        flex: 1;
+        padding: 40px var(--gap-around);
+        display: flex;
+        justify-content: center;
+        align-items: center;
         text-align: center;
+        background-color: var(--color-blue);
+
+        .intro-text {
+            font-family: var(--font-body);
+            font-size: 80px;
+            color: var(--color-yellow);
+            line-height: 1.4;
+            margin: 0;
+            max-width: 850px;
+        }
+    }
+
+    /* --- 2. SCREEN-FOLD: Plot (BILD 2) --- */
+    .plot {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        background-color: var(--color-pink);
+        padding: var(--gap-around);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+        overflow: hidden;
+
+        .image {
+            width: 100%;
+            height: 60vh;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        .text {
+            font-family: var(--font-body);
+            font-size: 26px;
+            color: var(--color-yellow);
+            line-height: 1.5;
+
+            p {
+                margin: 0 0 20px 0;
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    /* --- 3. SCREEN-FOLD: Galerie (BILD 3) --- */
+    .gallery {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        background-color: var(--color-blue);
+        
+        /* 100px Abstand oben & unten reservieren exakt den Raum für die Galeriebilder & Footer */
+        padding: 60px var(--gap-around) 100px var(--gap-around);
+        
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: calc(50% - 15px) calc(50% - 15px);
+        gap: 30px;
+        overflow: hidden;
+
+        .image {
+            width: 100%;
+            height: 100%;
+            min-width: 0;
+            min-height: 0;
+            object-fit: cover;
+
+            &:nth-child(1) {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            &:nth-child(2) {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            &:nth-child(3) {
+                grid-column: 2;
+                grid-row: 1 / span 2;
+            }
+        }
     }
 }
 
-/* Styling of all available teaser components. */
+/* ==========================================================================
+   5. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1024px) {
+    html {
+        scroll-snap-type: none;
+    }
 
-/* Styling of utility classes, can be added anywhere in the project. */
+    [data-page="project"] {
+        .hero-intro-wrapper,
+        .plot,
+        .gallery {
+            height: auto;
+            min-height: 100vh;
+        }
 
-/* BREAKPOINT: 3xl */
-@media (max-width: 1514px) {}
+        .hero .title {
+            font-size: 80px;
+        }
 
-/* BREAKPOINT: xl */
-@media (max-width: 1280px) {}
+        .intro .intro-text {
+            font-size: 36px;
+        }
 
-/* BREAKPOINT: lg */
-@media (max-width: 1024px) {}
+        .plot {
+            grid-template-columns: 1fr;
+            
+            .image {
+                height: 350px;
+            }
+        }
 
-/* BREAKPOINT: md */
-@media (max-width: 768px) {}
+        .gallery {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+            padding-bottom: 140px;
 
-/* BREAKPOINT: sm */
-@media (max-width: 640px) {}
+            .image {
+                height: 350px !important;
+            }
 
-/* BREAKPOINT: xs */
-@media (max-width: 425px) {}
+            .image:nth-child(3) {
+                grid-column: 1;
+                grid-row: auto;
+            }
+        }
+    }
+}
 
-/* BREAKPOINT: xxs */
-@media (max-width: 400px) {}
+@media (max-width: 768px) {
+    :root {
+        --gap-around: 20px;
+    }
+
+    [data-layout="header"] {
+        position: relative;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    [data-layout="footer"] {
+        position: relative;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+    }
+}

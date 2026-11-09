@@ -1,9 +1,9 @@
 <?php
 /**
- * Funktionen in dieser Datei können überall im Projekt verwendet werden.
- * Wenn eine neue globale Funktion benötigt wird, bitte hier ergänzen.
+ * - Funktionen in dieser Datei können überall im Projekt verwendet werden.
+ * - Wenn eine neue globale Funktion benötigt wird, bitte hier ergänzen.
  *
- * Diese globalen Funktionen sind nicht Wordpress-spezifisch.
+ * - Diese globalen Funktionen sind nicht Wordpress-spezifisch.
  */
 
 // -> PHP-Daten in der Browser-Konsole anzeigen
@@ -15,25 +15,35 @@ function js_log(mixed ...$content): void
 }
 
 // -> Details einer Mediendatei anhand der ID laden
-function get_media_by_id(int|string $id, string $size = 'm'): false|array
+function get_media_by_id(int|string $id, string $size = 'full'): false|array
 {
     $id = (int) $id;
+
+    if (!$id) {
+        return false;
+    }
+
+    $alt_text = get_post_meta($id, '_wp_attachment_image_alt', true);
+
     $data = [
         'title' => get_the_title($id),
-        'alt' => get_post_meta($id, '_wp_attachment_image_alt', true) ?: get_the_title($id),
+        'alt'   => $alt_text ? $alt_text : get_the_title($id),
     ];
+
     $image = wp_get_attachment_image_src($id, $size);
+
     if ($image) {
-        $data['src'] = $image[0];
+        $data['src']  = $image[0];
         $data['type'] = 'image';
     } else {
-        $data['src'] = wp_get_attachment_url($id);
-        $data['type'] = get_post_mime_type($id);
+        $data['src']  = wp_get_attachment_url($id) ?: '';
+        $data['type'] = get_post_mime_type($id) ?: 'image';
     }
+
     return $data;
 }
 
-// -> Ein Menu anhand des Keys laden
+// -> Ein Menü anhand des Keys laden
 function get_menu_by_slug(string $slug): array
 {
     $theme_locations = get_nav_menu_locations();
@@ -45,9 +55,9 @@ function get_menu_by_slug(string $slug): array
     $items = [];
     foreach ($menu as $item) {
         $items[] = [
-            'ID' => (int) $item->ID,
-            'title' => $item->title,
-            'url' => $item->url,
+            'ID'     => (int) $item->ID,
+            'title'  => $item->title,
+            'url'    => $item->url,
             'target' => $item->target,
         ];
     }
