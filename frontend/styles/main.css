@@ -12,15 +12,15 @@
     --gap-around: 40px;
     /* fonts */
     --font-body: "Courier New", monospace;
-    --font-heading: "Futura Condensed ExtraBold", sans-serif;
+    --font-heading: "Avenir Next Condensed", sans-serif;
 }
 
 /* Styling of all available layout components. */
 /* Logo */
 .logo {
     font-family: var(--font-heading);
-    font-size: 40px;
-    font-weight: 800;
+    font-size: 30px;
+    font-weight: 700;
     color: var(--color-pink);
     text-decoration: none;
 }
