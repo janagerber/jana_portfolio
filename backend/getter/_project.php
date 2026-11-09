@@ -11,17 +11,24 @@ function get_project_by_id($id): array {
         }
         // Wenn es eine Bild-ID ist
         return get_media_by_id($value);
-    };
+    }; // <-- 1. HIER FEHLTE DIE SCHLIESSENDE KLAMMER `};`
+
+    // Projektkategorie laden (Sicherheits-Check eingebaut, falls keine Kategorie vorhanden ist)
+    $terms = get_the_terms($id, 'project_category');
+    $project_categories = (!empty($terms) && !is_wp_error($terms)) 
+        ? array_map(function($item) { return $item->name; }, $terms) 
+        : [];
 
     return [
-        'title'           => get_the_title($id),
-        'hero_title'      => carbon_get_post_meta($id, 'project_hero_title'),
-        'hero_image'      => $format_image(carbon_get_post_meta($id, 'project_hero_image')),
-        'intro_text'      => carbon_get_post_meta($id, 'project_intro_text'),
-        'plot_image'      => $format_image(carbon_get_post_meta($id, 'project_plot_image')),
-        'plot_text'       => carbon_get_post_meta($id, 'project_plot_text'),
-        'gallery_image_1' => $format_image(carbon_get_post_meta($id, 'project_gallery_image_1')),
-        'gallery_image_2' => $format_image(carbon_get_post_meta($id, 'project_gallery_image_2')),
-        'gallery_image_3' => $format_image(carbon_get_post_meta($id, 'project_gallery_image_3')),
+        'title'              => get_the_title($id),
+        'hero_title'         => carbon_get_post_meta($id, 'project_hero_title'),
+        'hero_image'         => $format_image(carbon_get_post_meta($id, 'project_hero_image')),
+        'intro_text'         => carbon_get_post_meta($id, 'project_intro_text'),
+        'plot_image'         => $format_image(carbon_get_post_meta($id, 'project_plot_image')),
+        'plot_text'          => carbon_get_post_meta($id, 'project_plot_text'),
+        'gallery_image_1'    => $format_image(carbon_get_post_meta($id, 'project_gallery_image_1')),
+        'gallery_image_2'    => $format_image(carbon_get_post_meta($id, 'project_gallery_image_2')),
+        'gallery_image_3'    => $format_image(carbon_get_post_meta($id, 'project_gallery_image_3')),
+        'project_categories' => $project_categories,
     ];
-}
+} 

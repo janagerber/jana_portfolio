@@ -24,6 +24,7 @@
     box-sizing: border-box;
 }
 
+/* Verhindert das übermäßige Bounce-Scrollen am Seitenanfang */
 html {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
@@ -43,7 +44,7 @@ body {
 }
 
 /* ==========================================================================
-   2. LAYOUT: HEADER (Nur im 1. Fold oben verankert)
+   2. LAYOUT: HEADER
    ========================================================================== */
 [data-layout="header"] {
     position: absolute;
@@ -72,13 +73,13 @@ body {
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 40px;
+        gap: 180px; /* Anpassen für mehr/weniger Abstand zwischen Menüpunkten */
         margin: 0;
         padding: 0;
 
         a {
             font-family: var(--font-body);
-            font-size: 24px;
+            font-size: 30px;
             text-decoration: underline;
             color: var(--color-pink);
             text-transform: uppercase;
@@ -88,7 +89,7 @@ body {
 }
 
 /* ==========================================================================
-   3. LAYOUT: FOOTER (Exklusiv ganz unten in Block 3 platziert)
+   3. LAYOUT: FOOTER (Exklusiv im 3. Screen-Fold ganz unten)
    ========================================================================== */
 [data-layout="footer"] {
     position: absolute;
@@ -146,7 +147,7 @@ body {
     width: 100%;
     background-color: var(--color-blue);
 
-    /* --- 1. SCREEN-FOLD: Hero + Intro (BILD 1) --- */
+    /* --- 1. SCREEN-FOLD: Hero + Intro --- */
     .hero-intro-wrapper {
         position: relative;
         width: 100%;
@@ -200,10 +201,30 @@ body {
         flex: 1;
         padding: 40px var(--gap-around);
         display: flex;
+        flex-direction: column; /* Richtet Kategorie und Text untereinander aus */
         justify-content: center;
         align-items: center;
         text-align: center;
         background-color: var(--color-blue);
+        gap: 30px; /* Abstand zwischen Badge und Intro-Text */
+
+        .category {
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            justify-content: center;
+
+            .category-item {
+                font-family: var(--font-body);
+                font-size: 24px;
+                color: var(--color-yellow);
+                text-transform: lowercase; /* Kleinbuchstaben wie im Screenshot */
+                border: 2px solid var(--color-yellow); /* Gelber Rahmen */
+                padding: 6px 16px;
+                display: inline-block;
+            }
+        }
 
         .intro-text {
             font-family: var(--font-body);
@@ -214,8 +235,9 @@ body {
             max-width: 850px;
         }
     }
+}
 
-    /* --- 2. SCREEN-FOLD: Plot (BILD 2) --- */
+    /* --- 2. SCREEN-FOLD: Plot (Pink mit verlaufendem Hintergrundbild) --- */
     .plot {
         position: relative;
         width: 100%;
@@ -225,22 +247,46 @@ body {
         scroll-snap-stop: always;
         background-color: var(--color-pink);
         padding: var(--gap-around);
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 60px;
+        display: flex;
         align-items: center;
         overflow: hidden;
 
-        .image {
+        /* Bild-Wrapper nimmt den ganzen Bereich ein */
+        .image-wrapper {
+            position: absolute;
+            inset: 0;
             width: 100%;
-            height: 60vh;
-            max-height: 500px;
-            object-fit: cover;
+            height: 100%;
+            z-index: 1;
+
+            .image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* Sanfter Verlauf vom Foto ins Pink nach rechts */
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    to right, 
+                    rgba(255, 90, 127, 0) 15%, 
+                    rgba(255, 90, 127, 0.85) 60%, 
+                    var(--color-pink) 90%
+                );
+            }
         }
 
+        /* Text liegt schwebend über dem Verlauf auf der rechten Seite */
         .text {
+            position: relative;
+            z-index: 2;
+            margin-left: auto;
+            width: 45%;
             font-family: var(--font-body);
-            font-size: 26px;
+            font-size: 30px;
             color: var(--color-yellow);
             line-height: 1.5;
 
@@ -253,7 +299,7 @@ body {
         }
     }
 
-    /* --- 3. SCREEN-FOLD: Galerie (BILD 3) --- */
+    /* --- 3. SCREEN-FOLD: Galerie + Footer --- */
     .gallery {
         position: relative;
         width: 100%;
@@ -263,7 +309,7 @@ body {
         scroll-snap-stop: always;
         background-color: var(--color-blue);
         
-        /* 100px Abstand oben & unten reservieren exakt den Raum für die Galeriebilder & Footer */
+        /* Reservierter Abstand oben & unten für exakt eingepasstes Raster & Footer */
         padding: 60px var(--gap-around) 100px var(--gap-around);
         
         display: grid;
@@ -317,15 +363,37 @@ body {
             font-size: 80px;
         }
 
+        .category {
+        position: relative;
+        z-index: 2;
+        margin: 15px 0 0 0;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+
+        .category-item {
+            font-family: var(--font-body);
+            font-size: 20px;
+            color: var(--color-yellow);
+            text-transform: uppercase;}
+
         .intro .intro-text {
             font-size: 36px;
         }
 
         .plot {
-            grid-template-columns: 1fr;
+            padding: 100px var(--gap-around);
             
-            .image {
-                height: 350px;
+            .text {
+                width: 100%;
+            }
+
+            .image-wrapper &::after {
+                background: linear-gradient(
+                    to bottom, 
+                    rgba(255, 90, 127, 0.3), 
+                    var(--color-pink) 85%
+                );
             }
         }
 

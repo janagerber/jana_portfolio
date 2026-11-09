@@ -13,15 +13,26 @@ $project = get_project_by_id(get_the_ID());
         </div>
 
         <div class="intro">
+            <?php if (!empty($project['project_categories'])) : ?>
+                <p class="category">
+                    <?php foreach ($project['project_categories'] as $category) : ?>
+                        <span class="category-item"><?= esc_html($category) ?></span>
+                    <?php endforeach; ?>
+                </p>
+            <?php endif; ?>
+
             <p class="intro-text"><?= nl2br(esc_html($project['intro_text'])) ?></p>
         </div>
     </div>
 
-    <!-- Zweite Bildschirmseite: Plot (Pink) -->
+<!-- Zweite Bildschirmseite: Plot (Pink) -->
     <div class="plot">
         <?php if (!empty($project['plot_image']['src'])): ?>
-            <img class="image" src="<?= esc_url($project['plot_image']['src']) ?>" alt="<?= esc_attr($project['plot_image']['alt']) ?>">
+            <div class="image-wrapper">
+                <img class="image" src="<?= esc_url($project['plot_image']['src']) ?>" alt="<?= esc_attr($project['plot_image']['alt']) ?>">
+            </div>
         <?php endif; ?>
+
         <div class="text">
             <?= wpautop($project['plot_text']) ?>
         </div>
