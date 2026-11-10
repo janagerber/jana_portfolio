@@ -7,7 +7,7 @@
 > - 🟢 could
 
 ### SEO
-- [ ] 🟠 Ich habe [Yoast SEO](#yoast-seo) installiert, aktiviert und konfiguriert.
+- [x] 🟠 Ich habe [Yoast SEO](#yoast-seo) installiert, aktiviert und konfiguriert.
 - [ ] 🔴 Ich erlaube in den Einstellungen das Crawlen der Webseite (Einstellungen > Lesen).
 - [ ] 🔴 Ich habe eine korrekte robots.txt Datei. 
 - [ ] 🟠 Ich habe eine korrekte sitemap.xml Datei.

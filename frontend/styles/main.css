@@ -341,7 +341,150 @@ body {
             }
         }
     }
+
+/* Styling of all available module components. */
+
+[data-module="hero_default"] {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--color-blue);
+
+    .hero {
+        position: relative;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        overflow: hidden;
+
+        .image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .title {
+            position: relative;
+            z-index: 2;
+            font-family: var(--font-heading);
+            font-size: 180px;
+            font-weight: 900;
+            color: var(--color-blue);
+            text-transform: uppercase;
+            text-align: center;
+            margin: 0;
+            line-height: 0.9;
+            border-bottom: 20px solid var(--color-yellow);
+            padding-bottom: 10px;
+            max-width: 90%;
+        }
+    }
+
+    .intro {
+        width: 100%;
+        flex: 1;
+        padding: 40px var(--gap-around);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: var(--color-blue);
+
+        .intro-text {
+            font-family: var(--font-body);
+            font-size: 80px;
+            color: var(--color-yellow);
+            line-height: 1.4;
+            margin: 0;
+            max-width: 850px;
+        }
+    }
 }
+
+/* Styling of all available module components. */
+
+[data-module="hero_default"] {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--color-blue);
+
+    .hero {
+        position: relative;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        overflow: hidden;
+
+        .image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .title {
+            position: relative;
+            z-index: 2;
+            font-family: var(--font-heading);
+            font-size: 140px;
+            font-weight: 900;
+            color: var(--color-blue); /* Türkis/Grün wie im Figma-Screenshot */
+            text-transform: uppercase;
+            text-align: center;
+            margin: 0;
+            line-height: 0.85;
+            border-bottom: 12px solid var(--color-yellow); /* Gelber Balken */
+            padding-bottom: 15px;
+            max-width: 90%;
+            letter-spacing: -2px;
+        }
+    }
+
+    .intro {
+        width: 100%;
+        flex: 1;
+        padding: 40px var(--gap-around);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: var(--color-blue);
+
+        .intro-text {
+            font-family: var(--font-body);
+            font-size: 56px;
+            color: var(--color-yellow);
+            line-height: 1.4;
+            margin: 0;
+            max-width: 900px;
+        }
+    }
+}
+
 
 /* ==========================================================================
    5. RESPONSIVE BREAKPOINTS

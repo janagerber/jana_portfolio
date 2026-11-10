@@ -12,12 +12,18 @@ Container::make('post_meta', 'Module')
                 Field::make('text', 'title', 'Titel')->set_required(),
                 Field::make('image', 'image', 'Bild')->set_required(),
             ])
+            // -> hero_default
+            ->add_fields('hero_default', 'Hero Standard', [
+                Field::make('text', 'title', 'Titel')->set_required(),
+                Field::make('textarea', 'intro_text', 'Intro Text')->set_required(),
+                Field::make('image', 'image', 'Hintergrundbild')->set_required(),
+            ])
             // todo: add new modules here
             // -> SETTINGS
             ->set_layout('tabbed-vertical')
     ]);
 
-// -> Funktion, um die Module und die entsprechenden Templates auf der Seite zu laden
+ // -> Funktion, um die Module und die entsprechenden Templates auf der Seite zu laden
 function render_modules (): void {
     $modules = carbon_get_the_post_meta('modules');
     if (empty($modules)) {
@@ -27,9 +33,12 @@ function render_modules (): void {
         // -> Modifiziere die Daten des Moduls, falls nötig, basierend auf dem Modultyp
         switch ($module['_type']) {
             case 'example':
-                $module['image'] = get_media_by_id($module['image'], 'full');
+                $module['image'] = get_media_by_id($module['image']);
                 break;
-                // todo: add data modifications for modules here as a new case
+            case 'hero_default':
+                $module['image'] = get_media_by_id($module['image']);
+                break;
+            // todo: add data modifications for modules here as a new case
         }
         // -> Laden des Templates basierend auf dem Modultyp und weitergeben der Daten
         get_template_part(
