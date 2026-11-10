@@ -39,8 +39,15 @@ body {
     width: 100%;
     min-height: 100%;
     position: relative;
+    overflow-y: auto;
     overscroll-behavior-y: none;
     background-color: var(--color-blue);
+}
+
+/* Page Wrapper für statische Modul-Seiten */
+[data-page] {
+    width: 100%;
+    min-height: 100vh;
 }
 
 /* ==========================================================================
@@ -73,7 +80,7 @@ body {
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 180px; /* Anpassen für mehr/weniger Abstand zwischen Menüpunkten */
+        gap: 180px;
         margin: 0;
         padding: 0;
 
@@ -201,12 +208,12 @@ body {
         flex: 1;
         padding: 40px var(--gap-around);
         display: flex;
-        flex-direction: column; /* Richtet Kategorie und Text untereinander aus */
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
         background-color: var(--color-blue);
-        gap: 30px; /* Abstand zwischen Badge und Intro-Text */
+        gap: 30px;
 
         .category {
             margin: 0;
@@ -219,8 +226,8 @@ body {
                 font-family: var(--font-body);
                 font-size: 24px;
                 color: var(--color-yellow);
-                text-transform: lowercase; /* Kleinbuchstaben wie im Screenshot */
-                border: 2px solid var(--color-yellow); /* Gelber Rahmen */
+                text-transform: lowercase;
+                border: 2px solid var(--color-yellow);
                 padding: 6px 16px;
                 display: inline-block;
             }
@@ -235,7 +242,6 @@ body {
             max-width: 850px;
         }
     }
-}
 
     /* --- 2. SCREEN-FOLD: Plot (Pink mit verlaufendem Hintergrundbild) --- */
     .plot {
@@ -251,7 +257,6 @@ body {
         align-items: center;
         overflow: hidden;
 
-        /* Bild-Wrapper nimmt den ganzen Bereich ein */
         .image-wrapper {
             position: absolute;
             inset: 0;
@@ -265,7 +270,6 @@ body {
                 object-fit: cover;
             }
 
-            /* Sanfter Verlauf vom Foto ins Pink nach rechts */
             &::after {
                 content: "";
                 position: absolute;
@@ -279,7 +283,6 @@ body {
             }
         }
 
-        /* Text liegt schwebend über dem Verlauf auf der rechten Seite */
         .text {
             position: relative;
             z-index: 2;
@@ -308,10 +311,7 @@ body {
         scroll-snap-align: start;
         scroll-snap-stop: always;
         background-color: var(--color-blue);
-        
-        /* Reservierter Abstand oben & unten für exakt eingepasstes Raster & Footer */
         padding: 60px var(--gap-around) 100px var(--gap-around);
-        
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: calc(50% - 15px) calc(50% - 15px);
@@ -341,80 +341,13 @@ body {
             }
         }
     }
-
-/* Styling of all available module components. */
-
-[data-module="hero_default"] {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background-color: var(--color-blue);
-
-    .hero {
-        position: relative;
-        width: 100%;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: center;
-        overflow: hidden;
-
-        .image {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-
-        .title {
-            position: relative;
-            z-index: 2;
-            font-family: var(--font-heading);
-            font-size: 180px;
-            font-weight: 900;
-            color: var(--color-blue);
-            text-transform: uppercase;
-            text-align: center;
-            margin: 0;
-            line-height: 0.9;
-            border-bottom: 20px solid var(--color-yellow);
-            padding-bottom: 10px;
-            max-width: 90%;
-        }
-    }
-
-    .intro {
-        width: 100%;
-        flex: 1;
-        padding: 40px var(--gap-around);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        background-color: var(--color-blue);
-
-        .intro-text {
-            font-family: var(--font-body);
-            font-size: 80px;
-            color: var(--color-yellow);
-            line-height: 1.4;
-            margin: 0;
-            max-width: 850px;
-        }
-    }
 }
 
-/* Styling of all available module components. */
+/* ==========================================================================
+   5. MODULE COMPONENTS
+   ========================================================================== */
 
+/* --- Hero Standard --- */
 [data-module="hero_default"] {
     position: relative;
     width: 100%;
@@ -452,12 +385,12 @@ body {
             font-family: var(--font-heading);
             font-size: 140px;
             font-weight: 900;
-            color: var(--color-blue); /* Türkis/Grün wie im Figma-Screenshot */
+            color: var(--color-blue);
             text-transform: uppercase;
             text-align: center;
             margin: 0;
             line-height: 0.85;
-            border-bottom: 12px solid var(--color-yellow); /* Gelber Balken */
+            border-bottom: 12px solid var(--color-yellow);
             padding-bottom: 15px;
             max-width: 90%;
             letter-spacing: -2px;
@@ -485,9 +418,63 @@ body {
     }
 }
 
+/* --- Plot Navigation --- */
+[data-module="plot_navigation"] {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-pink);
+    overflow: hidden;
+
+    .side-title {
+        position: absolute;
+        left: 40px;
+        bottom: 40px;
+        font-family: var(--font-heading);
+        font-size: 140px;
+        font-weight: 900;
+        color: var(--color-blue);
+        text-transform: uppercase;
+        margin: 0;
+        line-height: 0.8;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        z-index: 2;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+        z-index: 2;
+
+        .nav-item {
+            font-family: var(--font-body);
+            font-size: 56px;
+            color: var(--color-yellow);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 4px solid var(--color-yellow);
+            padding-bottom: 4px;
+            transition: opacity 0.2s ease;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+}
 
 /* ==========================================================================
-   5. RESPONSIVE BREAKPOINTS
+   6. RESPONSIVE BREAKPOINTS
    ========================================================================== */
 @media (max-width: 1024px) {
     html {
@@ -507,18 +494,20 @@ body {
         }
 
         .category {
-        position: relative;
-        z-index: 2;
-        margin: 15px 0 0 0;
-        display: flex;
-        gap: 10px;
-        justify-content: center;
+            position: relative;
+            z-index: 2;
+            margin: 15px 0 0 0;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
 
-        .category-item {
-            font-family: var(--font-body);
-            font-size: 20px;
-            color: var(--color-yellow);
-            text-transform: uppercase;}
+            .category-item {
+                font-family: var(--font-body);
+                font-size: 20px;
+                color: var(--color-yellow);
+                text-transform: uppercase;
+            }
+        }
 
         .intro .intro-text {
             font-size: 36px;
@@ -531,7 +520,7 @@ body {
                 width: 100%;
             }
 
-            .image-wrapper &::after {
+            .image-wrapper::after {
                 background: linear-gradient(
                     to bottom, 
                     rgba(255, 90, 127, 0.3), 
@@ -553,6 +542,18 @@ body {
                 grid-column: 1;
                 grid-row: auto;
             }
+        }
+    }
+
+    [data-module="plot_navigation"] {
+        .side-title {
+            font-size: 80px;
+            left: 20px;
+            bottom: 20px;
+        }
+
+        .nav-links .nav-item {
+            font-size: 36px;
         }
     }
 }
