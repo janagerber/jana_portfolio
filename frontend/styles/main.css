@@ -383,7 +383,7 @@ body {
             position: relative;
             z-index: 2;
             font-family: var(--font-heading);
-            font-size: 140px;
+            font-size: 180px;
             font-weight: 900;
             color: var(--color-blue);
             text-transform: uppercase;
@@ -432,20 +432,21 @@ body {
     background-color: var(--color-pink);
     overflow: hidden;
 
-    .side-title {
+    & h2.side-title {
         position: absolute;
-        left: 40px;
-        bottom: 40px;
+        left: -10px;
+        top: 50%;
+        transform: translateY(-50%) rotate(180deg);
         font-family: var(--font-heading);
-        font-size: 140px;
+        font-size: clamp(140px, 22vh, 260px);
         font-weight: 900;
         color: var(--color-blue);
         text-transform: uppercase;
         margin: 0;
-        line-height: 0.8;
+        line-height: 0.75;
         writing-mode: vertical-rl;
-        transform: rotate(180deg);
-        z-index: 2;
+        z-index: 1;
+        pointer-events: none;
     }
 
     .nav-links {
@@ -457,12 +458,12 @@ body {
 
         .nav-item {
             font-family: var(--font-body);
-            font-size: 56px;
+            font-size: 80px;
             color: var(--color-yellow);
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 2px;
-            border-bottom: 4px solid var(--color-yellow);
+            border-bottom: 6px solid var(--color-yellow);
             padding-bottom: 4px;
             transition: opacity 0.2s ease;
 
@@ -472,6 +473,151 @@ body {
         }
     }
 }
+
+
+/* --- Overview Film Projects --- */
+[data-module="overview_film_projects"] {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-dark);
+    overflow: hidden;
+
+    /* Oberer Filmstreifen: Lückenloser Endlos-Loop */
+    .marquee-bar {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 100%;
+        background-color: var(--color-yellow);
+        padding: 6px 0;
+        overflow: hidden;
+        flex-shrink: 0;
+        z-index: 3;
+
+        &:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        .marquee-track {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            flex-shrink: 0;
+            gap: 8px;
+            padding-right: 8px;
+            width: max-content;
+            will-change: transform;
+            animation: marquee-scroll 25s linear infinite;
+        }
+
+        .marquee-item {
+            background-color: var(--color-pink);
+            color: var(--color-blue);
+            font-family: var(--font-heading);
+            font-size: 38px;
+            font-weight: 900;
+            line-height: 0.9;
+            padding: 4px 12px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+    }
+
+    /* Mittlerer & Unterer Bereich */
+    .projects-slider {
+        position: relative;
+        width: 100%;
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        .project-slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+            flex-direction: column;
+
+            &.is-active {
+                display: flex;
+            }
+
+            .slide-visual {
+                position: relative;
+                width: 100%;
+                flex: 1;
+                min-height: 0;
+                display: block;
+                overflow: hidden;
+
+                .image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .info-bar {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+                background-color: var(--color-yellow);
+                padding: 8px;
+                flex-shrink: 0;
+                z-index: 3;
+
+                .info-box {
+                    background-color: var(--color-pink);
+                    color: var(--color-yellow);
+                    font-family: var(--font-body);
+                    font-size: 28px;
+                    text-align: center;
+                    padding: 18px 16px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+
+        .slider-next {
+            position: absolute;
+            right: var(--gap-around);
+            top: 45%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: var(--color-blue);
+            cursor: pointer;
+            z-index: 10;
+            padding: 10px;
+            transition: transform 0.2s ease;
+
+            &:hover {
+                transform: translateY(-50%) translateX(6px);
+            }
+        }
+    }
+}
+
+@keyframes marquee-scroll {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
 
 /* ==========================================================================
    6. RESPONSIVE BREAKPOINTS
